@@ -36,13 +36,17 @@ class MovieDb():
 if __name__ == "__main__":
     print("I want to see top movies:\n1. ALL \n2. 2018")
     user_choice = input("Choice (1, 2):")
-    limit = int(input("Limit (0-100):"))
     if user_choice == '1':
         url = "https://www.imdb.com/chart/top?ref_=nv_mv_250"
     elif user_choice == '2':
         url = "https://www.imdb.com/best-of/top-100-shows-of-2018/ls045252633/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=b01789be-dffd-4aff-a31d-6eead051021a&pf_rd_r=GR0XJ2Y6DMB1YVXBSKAA&pf_rd_s=center-7&pf_rd_t=60601&pf_rd_i=best-of&ref_=fea_bo16_pks_tv_hd"
     else:
         print("CHOICE IS INVALID")
+        exit()
+    limit = int(input("Limit (1-100):"))
+    if limit > 100 or limit < 1:
+        print("LIMIT IS OUT OF RANGE")
+        exit()
     movie_db = MovieDb(user_choice, limit, url)
     start = time.time()
     movie_db.printData()
