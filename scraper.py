@@ -1,4 +1,4 @@
-import requests, urllib3, re
+import requests, urllib3, re, time
 from lxml import html, etree
 from bs4 import BeautifulSoup
 
@@ -17,6 +17,7 @@ class MovieDb():
             links = soup.find_all("td", class_="titleColumn")
             return links
         else:
+            # Using requests, lxml and xpath
             imdb_page = requests.get(self.url)
             page_content = html.fromstring(imdb_page.content) # need
             movie_block = page_content.xpath('//*[@data-caller-name="list-title"]/div/div/div/h3[@class="lister-item-header"]/a/text()')
@@ -43,4 +44,7 @@ if __name__ == "__main__":
     else:
         print("CHOICE IS INVALID")
     movie_db = MovieDb(user_choice, limit, url)
+    start = time.time()
     movie_db.printData()
+    finish = time.time()
+    print("Time elapsed: ", finish - start)
